@@ -20,4 +20,4 @@ let lire_points fichier =
 (* Fonction principale *)
 let () =
   let points = lire_points "chemin/vers/votre/fichier.csv" in
-  (* Ici vous allez construire la matrice A et résoudre le système *)
+  (* Ici vous allez construire la matriscscce A et résoudre le système *)
