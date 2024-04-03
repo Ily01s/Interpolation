@@ -19,7 +19,6 @@ let lire_points fichier =
 
 let () =
   let points = lire_points "chemin/vers/votre/fichier.csv" in
-  let d = (* Définissez le degré de votre courbe ici *) in
   let analyse = new analyseMoindresCarres points d in
   let coefficients = analyse#resoudreSysteme in
   (* Utilisez `coefficients` ici, par exemple pour les imprimer *)
