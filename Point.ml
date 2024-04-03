@@ -1,3 +1,6 @@
+(*Point.ml*)
+
+
 class point x y = object
   val x : float = x
   val y : float = y

@@ -1,3 +1,5 @@
+(*analyseMoindresCarres.ml*)
+
 class analyseMoindresCarres points d = object (self)
   val mutable points = points  (* Liste d'instances de la classe `point` *)
   val d = d  (* Degré de la courbe algébrique *)
