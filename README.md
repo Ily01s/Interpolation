@@ -1,5 +1,5 @@
  Interpolation. 2 étudiants
-Vous calculerez la courbe algébrique f(x, y) =0 avec i+j ≤ d
+Vous calculerez la courbe algébrique f(x,y)=∑i,∑j ​aij ​xi yj=0 avec i+j ≤ d
 de degré d donné qui passe, ou approche, un ensemble donnés de points dans le
 plan. Vous utiliserez une résolution aux moindres carrés [CLRS01, PTVF92].
 Vous enregistrerez la courbe et les points (issus d’un fichier).
