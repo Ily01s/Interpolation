@@ -1,5 +1,5 @@
 (*analyseMoindresCarres.ml*)
-open Owl
+open Owl;;
 
 
 class analyseMoindresCarres points d = object (self)
