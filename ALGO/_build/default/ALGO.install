@@ -1,0 +1,11 @@
+lib: [
+  "_build/install/default/lib/ALGO/META"
+  "_build/install/default/lib/ALGO/dune-package"
+  "_build/install/default/lib/ALGO/opam"
+]
+bin: [
+  "_build/install/default/bin/ALGO"
+]
+doc: [
+  "_build/install/default/doc/ALGO/README.md"
+]

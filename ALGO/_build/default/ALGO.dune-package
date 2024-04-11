@@ -1,0 +1,4 @@
+(lang dune 3.14)
+(name ALGO)
+(sections (lib .) (bin ../../bin) (doc ../../doc/ALGO))
+(files (lib (META dune-package opam)) (bin (ALGO)) (doc (README.md)))
