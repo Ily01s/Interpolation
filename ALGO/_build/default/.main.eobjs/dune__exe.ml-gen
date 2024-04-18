@@ -3,6 +3,9 @@
 (** @canonical Dune__exe.AnalyseMoindresCarres *)
 module AnalyseMoindresCarres = Dune__exe__AnalyseMoindresCarres
 
+(** @canonical Dune__exe.AnalyseRBF *)
+module AnalyseRBF = Dune__exe__AnalyseRBF
+
 (** @canonical Dune__exe.Main *)
 module Main = Dune__exe__Main
 

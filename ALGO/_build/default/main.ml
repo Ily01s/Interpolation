@@ -2,10 +2,10 @@
 open Util
 open AnalyseMoindresCarres
 open Polynome
+open AnalyseRBF
 
 
-
-let d = 2;;  (* Par exemple, pour une courbe quadratique *)
+let d = 2;;  
 
 let generer_points_cercle h k r n =
   let points = ref [] in
@@ -26,13 +26,17 @@ let ecrire_points_dans_fichier fichier points =
   close_out oc
 
 let () =
-  let points_cercle = generer_points_cercle 0. 0. 5. 7 in
+  let points_cercle = generer_points_cercle 2. 1. 5. 7 in
   ecrire_points_dans_fichier "./points.csv" points_cercle;
   let points = lire_points "./points.csv" in  (* Assurez-vous que lire_points est accessible *)
   let analyse = new analyseMoindresCarres points d in
   let coefficients_triplets = analyse#resoudreSysteme in
   let polynome = new polynome d coefficients_triplets in
   analyse#calculer_cercle;
+  let points_tuples = List.map (fun p -> (p#get_x, p#get_y)) points in
+  let mon_analyse_rbf = new analyseRBF points_tuples d in
+  let poids = mon_analyse_rbf#trouver_poids in
+  Owl.Mat.print poids;
   print_endline polynome#to_string
 
 
