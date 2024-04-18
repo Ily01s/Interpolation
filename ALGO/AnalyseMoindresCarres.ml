@@ -3,6 +3,7 @@ open Owl;;
 class analyseMoindresCarres points d = object (self)
   val mutable points = points
   val d = d
+  val mutable coeffs_list = []  
   
   (* Calcul de la ligne de la matrice A pour un point donné, avec ordre correct des termes *)
   method private calculer_ligne_matrice (p : Point.point) =
@@ -26,7 +27,21 @@ class analyseMoindresCarres points d = object (self)
     ) points;
     matrix
   
+    method update_coeffs_list coeffs =
+      coeffs_list <- Array.to_list coeffs
   
+      method calculer_cercle =
+        match coeffs_list with
+        | a :: d :: e :: f :: _ ->
+          let h = -.d /. (2. *. a) in
+          let k = -.e /. (2. *. a) in
+          let r = sqrt ((d ** 2. +. e ** 2.) /. (4. *. a ** 2.) -. f /. a) in
+          Printf.printf "Centre: (%.2f, %.2f)\nRayon: %.2f\n" h k r
+        | _ -> 
+          let taille = List.length coeffs_list in
+          Printf.printf "La taille de la liste des coefficients est : %d\n" taille
+
+
   method resoudreSysteme =
     let a = Mat.of_arrays (self#construireMatriceA) in
     Printf.printf "Matrice a :\n";
@@ -45,7 +60,7 @@ Printf.printf "Dimensions de 'a': %d x %d\n" (Mat.row_num a) (Mat.col_num a);
      let _, smallest_singular_value_index = Mat.min_i s in
      let solution = Mat.col vt smallest_singular_value_index.(1) in
      let coeffs = Mat.to_array solution in
-     let coeffs_list = Array.to_list coeffs in (* Separate step for clarity *)
+     self#update_coeffs_list coeffs;
      let coeffs_triplets =
       let rec aux acc i j =
         if i > d then acc
@@ -62,5 +77,6 @@ Printf.printf "Dimensions de 'a': %d x %d\n" (Mat.row_num a) (Mat.col_num a);
      in
      coeffs_triplets
 
+     
 
 end

@@ -1,0 +1,6 @@
+# dune build
+# OCAMLPARAM: unset
+# Workspace root: /home/hulk/Documents/M1/S2/algo/Interpolation
+$ /usr/bin/nproc > /tmp/dune1393d7.output 2> /dev/null
+# Auto-detected concurrency: 4
+# disable binary cache

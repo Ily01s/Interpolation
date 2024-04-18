@@ -1,1 +1,1 @@
-main.ml: AnalyseMoindresCarres Polynome Util
+main.ml: AnalyseMoindresCarres Float List Polynome Printf Util
