@@ -7,7 +7,7 @@ class analyseRBF points poids = object (self)
   method private construire_matrice_rbf =
     let n = List.length points in
     let mat = Mat.zeros n n in
-    let epsilon = 0.1 in  (* Supposez une valeur pour epsilon, ou calculez-la basée sur vos données *)
+    let epsilon = 0.0001 in  (* Supposez une valeur pour epsilon, ou calculez-la basée sur vos données *)
     List.iteri (fun i (xi, yi) ->
       List.iteri (fun j (xj, yj) ->
         let r2 = ((xi -. xj) ** 2.) +. ((yi -. yj) ** 2.) in

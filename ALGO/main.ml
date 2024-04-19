@@ -28,8 +28,8 @@ let ecrire_points_dans_fichier fichier points =
   
 
 let () =
-let points_validation = generer_points_cercle 2. 1. 5. 10 in
-  let points_cercle = generer_points_cercle 2. 1. 5. 7 in
+let points_validation = generer_points_cercle 2. 1. 5. 8 in
+  let points_cercle = generer_points_cercle 1. 1. 5. 7 in
   ecrire_points_dans_fichier "./points.csv" points_cercle;
   let points = lire_points "./points.csv" in  (* Assurez-vous que lire_points est accessible *)
   let analyse = new analyseMoindresCarres points d in
