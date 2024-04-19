@@ -1,19 +1,17 @@
 open Owl;;
 
-class analyseRBF points d  = object (self)
+class analyseRBF points poids = object (self)
   val mutable points = points
-  val d = d
-  
+  val mutable poids = poids
 
   method private construire_matrice_rbf =
     let n = List.length points in
     let mat = Mat.zeros n n in
-    let epsilon = 0.1 in  (* Récupère ou calcule epsilon *)
+    let epsilon = 0.1 in  (* Supposez une valeur pour epsilon, ou calculez-la basée sur vos données *)
     List.iteri (fun i (xi, yi) ->
       List.iteri (fun j (xj, yj) ->
         let r2 = ((xi -. xj) ** 2.) +. ((yi -. yj) ** 2.) in
         let exp_val = exp (-. epsilon *. r2) in
-        Printf.printf "Distance^2 entre (%f, %f) et (%f, %f) : %f, exp_val: %f\n" xi yi xj yj r2 exp_val;
         Mat.set mat i j exp_val
       ) points
     ) points;
@@ -23,40 +21,30 @@ class analyseRBF points d  = object (self)
     let n = List.length points in
     Mat.zeros n 1
 
-    method trouver_poids =
-      (* Obtenir la matrice A *)
-      let a = self#construire_matrice_rbf in
-      Printf.printf "Matrice A :\n";
-      Owl.Mat.print a;
-    
-      (* Définir le vecteur cible b, qui est un vecteur de zéros dans ce contexte *)
-      let b = self#definir_vecteur_cible in
-      Printf.printf "Vecteur b :\n";
-      Owl.Mat.print b;
-    
-      (* Calculer A^T A *)
-      let ata = Mat.(transpose a *@ a) in
-      Printf.printf "Matrice A^T A :\n";
-      Owl.Mat.print ata;
-    
-      (* Paramètre de régularisation λ, à ajuster selon les besoins *)
-      let lambda = 0.1 in
-    
-      (* Ajouter le terme de régularisation λI à A^T A *)
-      let n = Mat.row_num ata in
-      let lambda_i = Mat.(scalar_mul lambda (eye n)) in
-      let ata_reg = Mat.(add ata lambda_i) in
-      Printf.printf "Matrice A^T A + λI (régularisée) :\n";
-      Owl.Mat.print ata_reg;
-    
-      (* Résoudre le système régularisé (A^T A + λI)w = A^T b *)
-      (* Note : Comme b est un vecteur de zéros, A^T b sera également un vecteur de zéros. *)
-      let atb = Mat.(transpose a *@ b) in
-      let w = Linalg.D.linsolve ata_reg atb in
-    
-      (* Retourner les poids calculés *)
-      w
-    
-    
-      
+  method trouver_poids =
+    let a = self#construire_matrice_rbf in
+    (* Effectuer SVD sur A *)
+    let _, _, vt = Linalg.D.svd a in
+
+      (* La solution w est le vecteur propre correspondant à la plus petite valeur singulière,
+   qui est la dernière colonne de V (puisque Vt est déjà transposée) *)
+    let w = Mat.col vt (Mat.col_num vt - 1) in
+    w
+
+  method reconstruire_fonction x y =
+    let epsilon = 0.1 in
+    let valeurs_rbf = List.mapi (fun _ (xi, yi) ->
+      let r2 = ((x -. xi) ** 2.) +. ((y -. yi) ** 2.) in
+      exp (-. epsilon *. r2)
+    ) points in
+    List.fold_left2 (fun acc rbf_val w_val ->
+      acc +. (rbf_val *. w_val)
+    ) 0. valeurs_rbf (Array.to_list (Mat.to_array self#trouver_poids))
+
+  method valider points_validation =
+    List.map (fun (x, y) ->
+      let valeur = self#reconstruire_fonction x y in
+      Printf.printf "f(%f, %f) = %f\n" x y valeur;
+      (x, y, valeur)
+    ) points_validation
 end;;

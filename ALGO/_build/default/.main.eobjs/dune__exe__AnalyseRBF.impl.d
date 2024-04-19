@@ -1,1 +1,1 @@
-AnalyseRBF.ml: Linalg List Mat Owl Printf
+AnalyseRBF.ml: Array Linalg List Mat Owl Printf
