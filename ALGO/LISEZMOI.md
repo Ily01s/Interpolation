@@ -31,4 +31,4 @@ Les fonctions de base radiale offrent une flexibilité supérieure pour s'adapte
 Nous présentons une analyse comparative des résultats obtenus par les deux méthodes, mettant en lumière les avantages et limites de chacune. Nos tests montrent que les RBF peuvent offrir une précision et une flexibilité supérieures sous certaines conditions.
 
 ## Comment Utiliser
-Pour exécuter le projet, compilez et exécutez `main.ml` qui orchestre l'ensemble du processus d'interpolation et affiche les résultats. Assurez-vous d'avoir toutes les dépendances nécessaires installées.
+Pour exécuter le projet, compilez et exécutez `main.ml` par le makefile `make -f makefile.mak` qui orchestre l'ensemble du processus d'interpolation et affiche les résultats. Assurez-vous d'avoir toutes les dépendances nécessaires installées.
