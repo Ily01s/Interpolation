@@ -36,15 +36,18 @@ let points_validation = generer_points_cercle 2. 1. 5. 8 in
   let points_cercle = generer_points_cercle 1. 1. 5. 7 in
   ecrire_points_dans_fichier "./points.csv" points_cercle;
   let points = lire_points "./points.csv" in  
-
+  Printf.printf "DEMO1\n";
   (* Étape 2: Créer un objet AnalyseMoindresCarres et résoudre le système *)
   let analyse = new analyseMoindresCarres points d in
   let coefficients_triplets = analyse#resoudreSysteme in      
 
   (* Étape 3: Créer un objet Polynome et afficher le polynôme *)
   let polynome = new polynome d coefficients_triplets in
+  Printf.printf "%s\n" (polynome#to_string);
   analyse#calculer_cercle;   (* Calculer le cercle de confiance *)
+
   (* Étape 4: analyse RBF *)
+  Printf.printf "DEMO2\n";
   let points_tuples = List.map (fun p -> (p#get_x, p#get_y)) points in
   let mon_analyse_rbf = new analyseRBF points_tuples d in
   let poids = mon_analyse_rbf#trouver_poids in
@@ -55,7 +58,7 @@ let points_validation = generer_points_cercle 2. 1. 5. 8 in
     Printf.printf "Validation: f(%f, %f) = %f\n" x y valeur
   ) resultats_validation;
   Owl.Mat.print poids;
-  print_endline polynome#to_string
+  
 
 
   

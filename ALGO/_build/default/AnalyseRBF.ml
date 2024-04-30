@@ -48,7 +48,6 @@ class analyseRBF points poids = object (self)
   method valider points_validation =
     List.map (fun (x, y) ->
       let valeur = self#reconstruire_fonction x y in
-      Printf.printf "f(%f, %f) = %f\n" x y valeur;
       (x, y, valeur)
     ) points_validation
 end;;

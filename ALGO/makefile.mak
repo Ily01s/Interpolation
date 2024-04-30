@@ -17,6 +17,12 @@ build:
 exec:
 	@dune exec ./_build/default/main.exe
 
+demo1:
+	@dune exec ./_build/default/main.exe -- demo1
+
+demo2:
+	@dune exec ./_build/default/main.exe -- demo2
+
 # Nettoyage des fichiers générés
 clean:
 	@dune clean
