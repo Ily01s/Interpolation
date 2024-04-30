@@ -5,7 +5,9 @@ open Polynome
 open AnalyseRBF
 
 
-let d = 2;;  
+let d = 2;;  (* Degré du polynôme *)
+
+(* Fonction pour cree des points *)
 
 let generer_points_cercle h k r n =
   let points = ref [] in
@@ -28,18 +30,26 @@ let ecrire_points_dans_fichier fichier points =
   
 
 let () =
-let points_validation = generer_points_cercle 2. 1. 5. 8 in
+let points_validation = generer_points_cercle 2. 1. 5. 8 in 
+
+  (* Étape 1: Générer des points de validation de resultat et point d'utilisation*)
   let points_cercle = generer_points_cercle 1. 1. 5. 7 in
   ecrire_points_dans_fichier "./points.csv" points_cercle;
-  let points = lire_points "./points.csv" in  (* Assurez-vous que lire_points est accessible *)
+  let points = lire_points "./points.csv" in  
+
+  (* Étape 2: Créer un objet AnalyseMoindresCarres et résoudre le système *)
   let analyse = new analyseMoindresCarres points d in
-  let coefficients_triplets = analyse#resoudreSysteme in
+  let coefficients_triplets = analyse#resoudreSysteme in      
+
+  (* Étape 3: Créer un objet Polynome et afficher le polynôme *)
   let polynome = new polynome d coefficients_triplets in
-  analyse#calculer_cercle;
+  analyse#calculer_cercle;   (* Calculer le cercle de confiance *)
+  (* Étape 4: analyse RBF *)
   let points_tuples = List.map (fun p -> (p#get_x, p#get_y)) points in
   let mon_analyse_rbf = new analyseRBF points_tuples d in
   let poids = mon_analyse_rbf#trouver_poids in
   let resultats_validation = mon_analyse_rbf#valider points_validation in
+  
   (* Étape 5: Afficher ou analyser les résultats de validation *)
   List.iter (fun (x, y, valeur) ->
     Printf.printf "Validation: f(%f, %f) = %f\n" x y valeur

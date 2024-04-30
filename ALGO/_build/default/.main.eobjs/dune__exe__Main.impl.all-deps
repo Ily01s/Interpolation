@@ -1,5 +1,6 @@
-dune__exe__AnalyseMoindresCarres
-dune__exe__AnalyseRBF
-dune__exe__Point
-dune__exe__Polynome
-dune__exe__Util
+AnalyseMoindresCarres
+AnalyseRBF
+Dune__exe
+Point
+Polynome
+Util

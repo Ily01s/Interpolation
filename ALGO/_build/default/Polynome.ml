@@ -1,7 +1,7 @@
-class polynome d coefficients_init =
-object
+class polynome d coefficients_init =object
   val degree : int = d
   val coefficients : (int * int * float) list = coefficients_init
+  
   
   method get_degree = degree
   method get_coefficients = coefficients
